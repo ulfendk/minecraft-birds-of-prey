@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- **The Golden Raptor trophy can be placed:** it is now a block, a gold eagle with raised wings on a wooden stand that faces you and glows softly.
+
 ## 0.1.0
 
 The first version, for Bedrock and Java Edition.

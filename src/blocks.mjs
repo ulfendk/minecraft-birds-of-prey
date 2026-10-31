@@ -1,9 +1,10 @@
 // Custom blocks. The bird hide is a camouflaged wall with a viewing slit: wild birds
 // don't notice players next to one (scripts/hides.js). Owls and kestrels move into
-// nest boxes and raise chicks there (scripts/nestboxes.js).
+// nest boxes and raise chicks there (scripts/nestboxes.js). The Golden Raptor is the
+// contest winner's trophy (scripts/contest.js), a gold eagle on a stand to put on display.
 import { PNG } from 'pngjs';
 import { NS } from './lib/constants.mjs';
-import { hex, mix } from './lib/texture.mjs';
+import { hex, mix, pixelIcon } from './lib/texture.mjs';
 
 function rng(seed) {
   let s = seed >>> 0;
@@ -54,11 +55,27 @@ function nestBoxFront() {
   });
 }
 
-/** A box whose every listed face shows a whole 16x16 texture. */
-const box = (origin, size, faces = ['north', 'south', 'east', 'west', 'up', 'down']) => ({
+/** Polished gold: bright with a few highlights and darker hollows. */
+function goldTexture() {
+  const rand = rng(21);
+  return texture((x, y) => {
+    if ((x + y) % 7 === 0 && rand() < 0.5) return hex('#fff2a8');
+    return mix(hex('#f2c230'), hex('#a8780e'), ((x * 3 + y * 5) % 9) / 14 + rand() * 0.15);
+  });
+}
+
+/** Dark polished wood for the trophy's stand. */
+function standTexture() {
+  const rand = rng(17);
+  return texture((x, y) => (y === 0 || y === 15 ? hex('#2a180c') : mix(hex('#5a3a1e'), hex('#3a2412'), ((x * 5 + Math.floor(y / 4)) % 6) / 8 + rand() * 0.15)));
+}
+
+/** A box whose every listed face shows a whole 16x16 texture (or a named extra texture). */
+const box = (origin, size, faces = ['north', 'south', 'east', 'west', 'up', 'down'], material) => ({
   origin, size,
-  uv: Object.fromEntries(faces.map((f) => [f, { uv: [0, 0], uv_size: [16, 16] }])),
+  uv: Object.fromEntries(faces.map((f) => [f, { uv: [0, 0], uv_size: [16, 16], ...(material ? { material_instance: material } : {}) }])),
 });
+const gold = (origin, size) => box(origin, size, undefined, 'gold');
 
 const geometry = (id, cubes) => ({
   format_version: '1.12.0',
@@ -67,6 +84,26 @@ const geometry = (id, cubes) => ({
     bones: [{ name: 'block', pivot: [0, 0, 0], cubes }],
   }],
 });
+
+/** The trophy's picture on the website (in game it shows as the 3D block). */
+const ICON = pixelIcon([
+  '......kk........',
+  '.....kyyk.......',
+  '.....kyyyo......',
+  '......kyyk......',
+  '..kk..kyyk..kk..',
+  '.kyyk.kyyk.kyyk.',
+  '..kyykyyyykyyk..',
+  '...kyyyyyyyyk...',
+  '....kyyyyyyk....',
+  '.....kyyyyk.....',
+  '......kyyk......',
+  '.....kkyykk.....',
+  '....kwwwwwwk....',
+  '....kWWWWWWk....',
+  '....kkkkkkkk....',
+  '................',
+], { '.': null, k: '#5a3a08', y: '#f2c230', o: '#e89a20', w: '#6e4a2a', W: '#4a301a' });
 
 export const blocks = [
   {
@@ -136,10 +173,57 @@ export const blocks = [
       },
     },
   },
+  {
+    id: 'golden_raptor',
+    name: 'Golden Raptor Trophy',
+    sound: 'metal',
+    texture: standTexture(),
+    // Extra textures named by the cubes' material_instance rather than a face.
+    faces: { gold: goldTexture() },
+    icon: ICON,
+    // A gold eagle with raised wings on a two-step wooden stand, facing whoever placed it.
+    geometry: geometry('golden_raptor', [
+      box([-5, 0, -5], [10, 2, 10]),
+      box([-3.5, 2, -3.5], [7, 3, 7]),
+      gold([-2, 5, -2], [4, 5, 4]),
+      gold([-1.5, 5, 2], [3, 2, 2]),
+      gold([-1.5, 10, -3], [3, 3, 3]),
+      gold([-0.5, 10.5, -4], [1, 1.5, 1]),
+      // Each wing steps up and out from the shoulder to the long primaries.
+      ...[1, -1].flatMap((side) => [
+        [2, 7.5, 2, 4], [3.5, 9, 2, 4], [5, 10.5, 2, 5.5],
+      ].map(([x, y, w, h]) => gold([side > 0 ? x : -x - w, y, -1], [w, h, 1.5]))),
+    ]),
+    definition: {
+      format_version: '1.21.120',
+      'minecraft:block': {
+        description: {
+          identifier: `${NS}:golden_raptor`, menu_category: { category: 'items' },
+          traits: { 'minecraft:placement_direction': { enabled_states: ['minecraft:cardinal_direction'], y_rotation_offset: 180 } },
+        },
+        components: {
+          'minecraft:geometry': `geometry.${NS}.golden_raptor`,
+          'minecraft:material_instances': {
+            '*': { texture: `${NS}_golden_raptor`, render_method: 'opaque' },
+            gold: { texture: `${NS}_golden_raptor_gold`, render_method: 'opaque' },
+          },
+          'minecraft:collision_box': { origin: [-5, 0, -5], size: [10, 16, 10] },
+          'minecraft:selection_box': { origin: [-6, 0, -5], size: [12, 16, 10] },
+          'minecraft:light_dampening': 0,
+          'minecraft:light_emission': 4,
+          'minecraft:destructible_by_mining': { seconds_to_destroy: 1.5 },
+          'minecraft:destructible_by_explosion': { explosion_resistance: 6 },
+          'minecraft:map_color': '#f2c230',
+          'minecraft:display_name': `tile.${NS}:golden_raptor.name`,
+        },
+      },
+    },
+  },
 ];
 
-// The hide is a wall: turn it to face the way it was placed, too.
+// The hide is a wall: turn it to face the way it was placed, too. So does the trophy.
 blocks[0].definition['minecraft:block'].permutations = blocks[1].definition['minecraft:block'].permutations;
+blocks[2].definition['minecraft:block'].permutations = blocks[1].definition['minecraft:block'].permutations;
 
 export const blockRecipes = [
   {

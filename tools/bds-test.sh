@@ -68,6 +68,7 @@ for f in build/behavior_pack/entities/*.json; do
 done
 send setblock 40 -60 40 birds:nest_box
 send setblock 42 -60 40 birds:bird_hide
+send setblock 44 -60 40 birds:golden_raptor
 send time set night
 sleep 10
 send time set day

@@ -44,7 +44,7 @@ for (const a of animals) {
 const GROUP_ORDER = ['eagle', 'falcon', 'hawk', 'owl', 'vulture'];
 cards.sort((x, y) => GROUP_ORDER.indexOf(x.group) - GROUP_ORDER.indexOf(y.group));
 
-for (const item of [...items, ...blocks.map((b) => ({ ...b, icon: b.texture }))]) {
+for (const item of [...items, ...blocks.map((b) => ({ ...b, icon: b.icon ?? b.texture }))]) {
   await writeFile(join(OUT, 'img', 'items', `${item.id}.png`), upscale(item.icon, 4));
 }
 await copyFile(join(RP, 'pack_icon.png'), join(OUT, 'img', 'icon.png'));

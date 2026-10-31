@@ -1,6 +1,6 @@
 {
   "name": "birds-of-prey",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Birds of Prey: a Minecraft Bedrock add-on and Java mod with eagles, falcons, hawks, owls and vultures, falconry and birdwatching gear",
   "private": true,
   "type": "module",

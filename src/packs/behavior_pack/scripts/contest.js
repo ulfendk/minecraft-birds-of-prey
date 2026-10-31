@@ -92,6 +92,7 @@ function finish() {
     const winner = world.getPlayers().find((p) => p.name === best.name);
     if (winner) {
       give(winner, stack(`${NS}:golden_raptor`));
+      winner.sendMessage({ translate: `${NS}.contest.trophy` });
       winner.playSound('random.totem');
     }
   }

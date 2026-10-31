@@ -153,7 +153,7 @@ function blockModel(block) {
       const to = from.map((v, i) => v + cube.size[i]);
       const faces = {};
       const all = { north: 'north', south: 'south', east: 'east', west: 'west', up: 'up', down: 'down' };
-      for (const f of Object.keys(cube.uv)) faces[all[f]] = { uv: [0, 0, 16, 16], texture: block.faces?.[f] ? `#${f}` : '#all' };
+      for (const [f, uv] of Object.entries(cube.uv)) faces[all[f]] = { uv: [0, 0, 16, 16], texture: uv.material_instance ? `#${uv.material_instance}` : block.faces?.[f] ? `#${f}` : '#all' };
       const el = { from, to, faces };
       if (cube.rotation) {
         const axis = cube.rotation[1] ? 'y' : cube.rotation[0] ? 'x' : 'z';
@@ -194,7 +194,7 @@ export async function buildJava({ animals, geos, anims, textures, items, blocks,
     await write(join(A, 'textures', 'block', `${block.id}.png`), block.texture);
     for (const [f, tex] of Object.entries(block.faces ?? {})) await write(join(A, 'textures', 'block', `${block.id}_${f}.png`), tex);
     await write(join(A, 'models', 'block', `${block.id}.json`), blockModel(block));
-    // Both blocks turn to face the player who placed them.
+    // Every block turns to face the player who placed them.
     await write(join(A, 'blockstates', `${block.id}.json`), { variants: Object.fromEntries(
       [['north', 0], ['east', 90], ['south', 180], ['west', 270]].map(([f, y]) => [`facing=${f}`, { model: `${NS}:block/${block.id}`, ...(y ? { y } : {}) }]),
     ) });

@@ -145,6 +145,7 @@ public final class Contest {
 			ServerPlayer winner = server.getPlayerList().getPlayerByName(scores.get(0).owner());
 			if (winner != null) {
 				if (!winner.getInventory().add(new ItemStack(BirdsRegistry.GOLDEN_RAPTOR))) winner.spawnAtLocation(winner.level(), new ItemStack(BirdsRegistry.GOLDEN_RAPTOR));
+				winner.sendSystemMessage(Component.translatable("birds.contest.trophy"));
 				winner.level().playSound(null, winner.blockPosition(), SoundEvents.TOTEM_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
 			}
 		}

@@ -54,6 +54,7 @@ const UI = {
   'contest.winner': ['§6%s wins with %s points!', '§6%s vinder med %s point!'],
   'contest.no_winner': ['Nobody scored. Better luck next time!', 'Ingen fik point. Bedre held næste gang!'],
   'contest.place': ['%s. %s – %s points', '%s. %s – %s point'],
+  'contest.trophy': ['§6You won the Golden Raptor Trophy!§r Place it somewhere to show it off.', '§6Du har vundet Gylden rovfugl-trofæet!§r Stil det et sted, så alle kan se det.'],
   'contest.score': ['Score', 'Point'],
   'hide.inside': ['You are hidden in the bird hide.', 'Du sidder skjult i fugleskjulet.'],
 };

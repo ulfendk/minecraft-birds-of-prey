@@ -252,31 +252,6 @@ export const items = [
       '................',
     ], { '.': null, k: '#4a3218', w: '#e8d8b0', b: '#c8963a', r: '#c8342a' }),
   },
-  {
-    id: 'golden_raptor',
-    name: 'Golden Raptor Trophy',
-    category: 'items',
-    stack: 16,
-    components: { 'minecraft:glint': true },
-    icon: pixelIcon([
-      '......kk........',
-      '.....kyyk.......',
-      '.....kyyyo......',
-      '......kyyk......',
-      '..kk..kyyk..kk..',
-      '.kyyk.kyyk.kyyk.',
-      '..kyykyyyykyyk..',
-      '...kyyyyyyyyk...',
-      '....kyyyyyyk....',
-      '.....kyyyyk.....',
-      '......kyyk......',
-      '.....kkyykk.....',
-      '....kwwwwwwk....',
-      '....kWWWWWWk....',
-      '....kkkkkkkk....',
-      '................',
-    ], { '.': null, k: '#5a3a08', y: '#f2c230', o: '#e89a20', w: '#6e4a2a', W: '#4a301a' }),
-  },
 ];
 
 export const recipes = [

@@ -6,6 +6,7 @@ import java.util.function.Function;
 
 import dk.ulfen.birds.block.FacingBlock;
 import dk.ulfen.birds.block.NestBoxBlock;
+import dk.ulfen.birds.block.TrophyBlock;
 import dk.ulfen.birds.entity.Raptor;
 import dk.ulfen.birds.item.BinocularsItem;
 import dk.ulfen.birds.item.BirdGuideItem;
@@ -16,7 +17,6 @@ import dk.ulfen.birds.species.SpeciesRegistry;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.Registry;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -44,6 +44,7 @@ public final class BirdsRegistry {
 
 	public static Block BIRD_HIDE;
 	public static Block NEST_BOX;
+	public static Block GOLDEN_RAPTOR;
 
 	public static Item BIRD_GUIDE;
 	public static Item BINOCULARS;
@@ -55,7 +56,6 @@ public final class BirdsRegistry {
 	public static Item BIRD_RING;
 	public static Item OWL_PELLET;
 	public static Item CONTEST_HORN;
-	public static Item GOLDEN_RAPTOR;
 
 	private BirdsRegistry() {}
 
@@ -96,6 +96,8 @@ public final class BirdsRegistry {
 			.mapColor(MapColor.PLANT).strength(1.0F).sound(SoundType.WOOD).noOcclusion().ignitedByLava());
 		NEST_BOX = block("nest_box", NestBoxBlock::new, BlockBehaviour.Properties.of()
 			.mapColor(MapColor.WOOD).strength(1.0F).sound(SoundType.WOOD).noOcclusion().randomTicks().ignitedByLava());
+		GOLDEN_RAPTOR = block("golden_raptor", TrophyBlock::new, BlockBehaviour.Properties.of()
+			.mapColor(MapColor.GOLD).strength(1.5F).sound(SoundType.METAL).noOcclusion().lightLevel(s -> 4));
 	}
 
 	private static <T extends Item> T item(String name, Function<Item.Properties, T> factory, Item.Properties props) {
@@ -121,7 +123,6 @@ public final class BirdsRegistry {
 		BIRD_RING = item("bird_ring", Item::new, new Item.Properties());
 		OWL_PELLET = gear("owl_pellet", GearItem.Kind.PELLET, 64);
 		CONTEST_HORN = gear("contest_horn", GearItem.Kind.HORN, 1);
-		GOLDEN_RAPTOR = item("golden_raptor", Item::new, new Item.Properties().stacksTo(16).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
 	}
 
 	private static void registerCreativeTab() {
@@ -130,9 +131,10 @@ public final class BirdsRegistry {
 			.icon(() -> new ItemStack(SPAWN_EGGS.get("peregrine_falcon")))
 			.displayItems((params, out) -> {
 				SPAWN_EGGS.values().forEach(out::accept);
-				for (Item i : new Item[] {BIRD_GUIDE, BINOCULARS, FALCONER_GLOVE, FALCONRY_HOOD, FALCONRY_LURE, BIRD_CALL, BIRD_RING, CONTEST_HORN, OWL_PELLET, GOLDEN_RAPTOR}) out.accept(i);
+				for (Item i : new Item[] {BIRD_GUIDE, BINOCULARS, FALCONER_GLOVE, FALCONRY_HOOD, FALCONRY_LURE, BIRD_CALL, BIRD_RING, CONTEST_HORN, OWL_PELLET}) out.accept(i);
 				out.accept(BIRD_HIDE);
 				out.accept(NEST_BOX);
+				out.accept(GOLDEN_RAPTOR);
 			})
 			.build();
 		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, id("birds"), tab);
