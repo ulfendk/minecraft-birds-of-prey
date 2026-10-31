@@ -1,0 +1,9 @@
+{
+	"required": true,
+	"package": "dk.ulfen.birds.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": ["PlayerMixin"],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

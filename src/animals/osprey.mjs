@@ -1,0 +1,35 @@
+import { barred, bird, breast, flecked, mottle, region, scaled, streaked, tailBars, underside } from '../lib/plumage.mjs';
+
+export default bird({
+  id: 'osprey',
+  name: 'Osprey',
+  group: 'eagle',
+  size: [0.75, 0.95],
+  scale: 1.05,
+  health: 18,
+  flySpeed: 0.24,
+  xp: 4,
+  attack: { damage: 5, speed: 1.8 },
+  hunts: ['fish'],
+  huntRange: 32,
+  hovers: true,
+  spawn: [{ biomes: ['river'], weight: 3 }, { biomes: ['beach'], weight: 1 }],
+  loot: [{ item: 'feather', min: 1, max: 3 }],
+  sounds: { ambient: 'mob.parrot.idle', hurt: 'mob.parrot.hurt', death: 'mob.parrot.death', pitch: [1.7, 1.9], interval: 16 },
+  egg: ['#3a2a1e', '#f4f2ec'],
+  body: { bodyW: 5, bodyH: 5, bodyL: 10, headW: 4, headH: 4, headD: 5, beak: 2, wingL: 15, wingD: 6, tip: 5, tailL: 6, tailW: 3, eye: '#e8d04a',
+    // The dark stripe through the eye.
+    marks: [{ face: 'left', x: 0, y: 2, w: 5, color: '#2a1e14' }, { face: 'right', x: 0, y: 2, w: 5, color: '#2a1e14' }] },
+  materials: {
+    body: { base: '#3a2a1e', layers: [region('#f4f2ec', breast), flecked('#6a5040', { density: 0.12, where: ({ face: f, p }) => f === 'bottom' && p[2] < -1 })] },
+    wing: { base: '#3a2a1e', layers: [scaled(0.1)] },
+    primaries: '#1a120c',
+    tail: { base: '#5a4434', layers: [tailBars('#2a1e14', { period: 3 })] },
+    head: { base: '#f4f2ec', layers: [region('#3a2a1e', ({ face: f }) => f === 'back')] },
+    cere: '#3a4a5a',
+    beak: '#1a1a1e',
+    legs: '#f4f2ec',
+    foot: '#c8d0d8',
+  },
+  motion: { span: 14, flap: 20, flapLength: 0.6 },
+});

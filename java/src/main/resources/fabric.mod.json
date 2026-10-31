@@ -1,0 +1,28 @@
+{
+	"schemaVersion": 1,
+	"id": "birds",
+	"version": "${version}",
+	"name": "Birds of Prey",
+	"description": "Eagles, falcons, hawks, owls and vultures, with falconry, contests, binoculars, bird rings, hides and nest boxes.",
+	"authors": ["ulfendk"],
+	"contact": {
+		"homepage": "https://ulfendk.github.io/minecraft-birds-of-prey/",
+		"sources": "https://github.com/ulfendk/minecraft-birds-of-prey",
+		"issues": "https://github.com/ulfendk/minecraft-birds-of-prey/issues"
+	},
+	"license": "MIT",
+	"icon": "assets/birds/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": ["dk.ulfen.birds.BirdsOfPrey"],
+		"client": ["dk.ulfen.birds.client.BirdsClient"]
+	},
+	"mixins": ["birds.mixins.json"],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*",
+		"geckolib": ">=5.5"
+	}
+}

@@ -1,0 +1,35 @@
+import { barred, bird, breast, flecked, mottle, region, scaled, streaked, tailBars } from '../lib/plumage.mjs';
+
+export default bird({
+  id: 'barn_owl',
+  name: 'Barn Owl',
+  group: 'owl',
+  size: [0.6, 0.85],
+  scale: 0.75,
+  health: 10,
+  flySpeed: 0.2,
+  attack: { damage: 3, speed: 1.6 },
+  hunts: ['silverfish', 'bat', 'frog', 'rabbit'],
+  huntRange: 20,
+  hovers: true,
+  pellets: true,
+  nestBox: true,
+  falconry: { chance: 0.3 },
+  spawn: [{ biomes: ['plains'], weight: 2 }, { biomes: ['meadow'], weight: 1 }],
+  sounds: { ambient: 'mob.fox.screech', hurt: 'mob.parrot.hurt', death: 'mob.parrot.death', pitch: [1.2, 1.4], interval: 20 },
+  egg: ['#d8a860', '#f8f4ec'],
+  body: { bodyW: 6, bodyH: 6, bodyL: 8, headW: 6, headH: 5, headD: 5, neck: 0, beak: 1, wingL: 11, wingD: 6, tip: 3, tailL: 4, tailW: 4, lean: -72, eye: '#14100c' },
+  materials: {
+    body: { base: '#d8a860', layers: [region('#f8f4ec', breast), flecked('#6a6a6a', { density: 0.1, where: ({ face: f }) => f === 'top' })] },
+    wing: { base: '#d0a058', layers: [flecked('#7a7a7a', { density: 0.12 }), mottle(0.06)] },
+    primaries: { base: '#e8c890', layers: [barred('#a88050', { period: 3 })] },
+    tail: { base: '#e0b878', layers: [tailBars('#a88050', { period: 3 })] },
+    // The white heart-shaped face.
+    head: { base: '#d8a860', layers: [region('#f8f4ec', ({ face: f, i, j, fw }) => f === 'front' && !(j === 0 && (i === 0 || i === fw - 1 || i === fw / 2 || i === fw / 2 - 1)))] },
+    cere: '#f0dcc8',
+    beak: '#f0dcc8',
+    legs: '#f8f4ec',
+    foot: '#8a7a6a',
+  },
+  motion: { flap: 20, flapLength: 0.6 },
+});

@@ -1,0 +1,15 @@
+{
+	"schemaVersion": 1,
+	"id": "birds-test",
+	"version": "1.0.0",
+	"name": "Birds of Prey tests",
+	"environment": "*",
+	"entrypoints": {
+		"fabric-gametest": [
+			"dk.ulfen.birds.test.BirdsGameTests"
+		]
+	},
+	"depends": {
+		"birds": "*"
+	}
+}

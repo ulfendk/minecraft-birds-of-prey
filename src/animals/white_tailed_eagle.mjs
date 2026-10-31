@@ -1,0 +1,33 @@
+import { barred, bird, breast, flecked, mottle, region, scaled, streaked, tailBars, underside } from '../lib/plumage.mjs';
+
+export default bird({
+  id: 'white_tailed_eagle',
+  name: 'White-tailed Eagle',
+  group: 'eagle',
+  size: [0.85, 1.05],
+  scale: 1.25,
+  health: 26,
+  flySpeed: 0.22,
+  xp: 6,
+  attack: { damage: 6, speed: 1.5 },
+  hunts: ['fish', 'rabbit', 'chicken'],
+  huntRange: 32,
+  soars: true,
+  spawn: [{ biomes: ['beach'], weight: 2 }, { biomes: ['river', 'swamp'], weight: 1 }],
+  loot: [{ item: 'feather', min: 1, max: 4 }],
+  sounds: { ambient: 'mob.phantom.idle', hurt: 'mob.parrot.hurt', death: 'mob.parrot.death', pitch: [1.4, 1.6], interval: 22 },
+  egg: ['#6a5040', '#f0ece0'],
+  body: { bodyW: 6, bodyH: 6, bodyL: 11, headW: 4, headH: 4, headD: 5, beak: 2, wingL: 16, wingD: 8, tip: 6, tailL: 5, tailW: 4, eye: '#e8d04a' },
+  materials: {
+    body: { base: '#6a5040', layers: [mottle(0.14, { scale: 3 }), scaled(0.15)] },
+    wing: { base: '#5a4434', layers: [scaled(0.2), mottle(0.1)] },
+    primaries: '#1e1610',
+    tail: '#f0ece0',
+    head: { base: '#c8b89a', layers: [mottle(0.08)] },
+    cere: '#f2d04a',
+    beak: '#f2d04a',
+    legs: '#5a4434',
+    foot: '#f2c230',
+  },
+  motion: { span: 4, flap: 16, flapLength: 0.9 },
+});

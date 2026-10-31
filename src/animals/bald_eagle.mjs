@@ -1,0 +1,33 @@
+import { barred, bird, breast, flecked, mottle, region, scaled, streaked, tailBars, underside } from '../lib/plumage.mjs';
+
+export default bird({
+  id: 'bald_eagle',
+  name: 'Bald Eagle',
+  group: 'eagle',
+  size: [0.8, 1.0],
+  scale: 1.2,
+  health: 24,
+  flySpeed: 0.24,
+  xp: 6,
+  attack: { damage: 6, speed: 1.6 },
+  hunts: ['fish', 'rabbit', 'chicken'],
+  huntRange: 32,
+  soars: true,
+  spawn: [{ biomes: ['river', 'beach'], weight: 2 }, { biomes: ['taiga'], weight: 1 }],
+  loot: [{ item: 'feather', min: 1, max: 4 }],
+  sounds: { ambient: 'mob.phantom.idle', hurt: 'mob.parrot.hurt', death: 'mob.parrot.death', pitch: [1.6, 1.8], interval: 20 },
+  egg: ['#3a2618', '#f4f0e6'],
+  body: { bodyW: 6, bodyH: 6, bodyL: 11, headW: 4, headH: 4, headD: 5, beak: 2, wingL: 15, wingD: 7, tip: 5, tailL: 6, tailW: 4, eye: '#e8d04a' },
+  materials: {
+    body: { base: '#3a2618', layers: [mottle(0.1, { scale: 3 })] },
+    wing: { base: '#36241a', layers: [scaled(0.12)] },
+    primaries: '#1a120c',
+    tail: '#f4f0e6',
+    head: { base: '#f4f0e6', layers: [mottle(0.04)] },
+    cere: '#f2c230',
+    beak: '#f2c230',
+    legs: '#3a2618',
+    foot: '#f2c230',
+  },
+  motion: { span: 6, flap: 18, flapLength: 0.8 },
+});

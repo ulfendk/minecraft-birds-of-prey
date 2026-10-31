@@ -1,0 +1,37 @@
+import { barred, bird, breast, flecked, mottle, region, scaled, streaked, tailBars, underside } from '../lib/plumage.mjs';
+
+export default bird({
+  id: 'kestrel',
+  name: 'Kestrel',
+  group: 'falcon',
+  size: [0.5, 0.7],
+  scale: 0.6,
+  health: 8,
+  flySpeed: 0.24,
+  xp: 2,
+  attack: { damage: 2, speed: 1.8 },
+  hunts: ['silverfish', 'frog', 'bat', 'small'],
+  huntRange: 20,
+  hovers: true,
+  nestBox: true,
+  falconry: { chance: 0.35 },
+  spawn: [{ biomes: ['plains', 'meadow'], weight: 4 }, { biomes: ['savanna'], weight: 1 }],
+  loot: [{ item: 'feather', min: 0, max: 2 }],
+  sounds: { ambient: 'mob.phantom.idle', hurt: 'mob.parrot.hurt', death: 'mob.parrot.death', pitch: [1.9, 2.0], interval: 14 },
+  egg: ['#b8643a', '#5a6a7a'],
+  body: { bodyW: 5, bodyH: 5, bodyL: 9, headW: 4, headH: 4, headD: 4, wingL: 11, wingD: 6, tip: 5, tailL: 8, tailW: 3,
+    marks: [{ face: 'left', x: 1, y: 2, h: 2, color: '#2a2420' }, { face: 'right', x: 2, y: 2, h: 2, color: '#2a2420' }] },
+  materials: {
+    // Brick-red back with black spots, buff chest with streaks.
+    body: { base: '#b8643a', layers: [flecked('#2a1a10', { density: 0.18 }), region('#e8cfa0', breast), streaked('#6a4a30', { density: 0.3, where: breast })] },
+    wing: { base: '#b0603a', layers: [flecked('#2a1a10', { density: 0.2 })] },
+    primaries: '#2a201a',
+    tail: { base: '#7a8a9a', layers: [region('#1e1e22', ({ p }) => p[2] > 14)] },
+    head: { base: '#7a8a9a', layers: [region('#e8dcc4', ({ face: f, j }) => f === 'front' && j >= 2)] },
+    cere: '#e8c23a',
+    beak: '#4a5a6a',
+    legs: '#e0c8a0',
+    foot: '#e8c23a',
+  },
+  motion: { flap: 24, flapLength: 0.4 },
+});

@@ -1,0 +1,32 @@
+import { barred, bird, breast, flecked, mottle, region, scaled, streaked, tailBars } from '../lib/plumage.mjs';
+
+export default bird({
+  id: 'tawny_owl',
+  name: 'Tawny Owl',
+  group: 'owl',
+  size: [0.6, 0.85],
+  scale: 0.75,
+  health: 10,
+  flySpeed: 0.2,
+  attack: { damage: 3, speed: 1.6 },
+  hunts: ['silverfish', 'bat', 'frog', 'rabbit'],
+  huntRange: 20,
+  pellets: true,
+  nestBox: true,
+  spawn: [{ biomes: ['forest'], weight: 3 }, { biomes: ['dark_forest'], weight: 2 }],
+  sounds: { ambient: 'note.flute', hurt: 'mob.parrot.hurt', death: 'mob.parrot.death', pitch: [0.5, 0.55], interval: 16 },
+  egg: ['#7a5232', '#c8a070'],
+  body: { bodyW: 6, bodyH: 6, bodyL: 8, headW: 6, headH: 5, headD: 5, neck: 0, beak: 1, wingL: 11, wingD: 6, tip: 3, tailL: 4, tailW: 4, lean: -72, eye: '#14100c' },
+  materials: {
+    body: { base: '#7a5232', layers: [region('#b88a5a', breast), streaked('#3a2414', { density: 0.4 }), mottle(0.1)] },
+    wing: { base: '#6e4a2c', layers: [flecked('#e0c8a0', { density: 0.1 }), mottle(0.1)] },
+    primaries: { base: '#6a4a30', layers: [barred('#3a2414', { period: 2 })] },
+    tail: { base: '#6e4a2c', layers: [tailBars('#3a2414', { period: 2 })] },
+    head: { base: '#7a5232', layers: [region('#a87a4a', ({ face: f }) => f === 'front'), mottle(0.1)] },
+    cere: '#d8c8a0',
+    beak: '#d8c8a0',
+    legs: '#c8a878',
+    foot: '#6a5a4a',
+  },
+  motion: { flap: 20, flapLength: 0.6 },
+});

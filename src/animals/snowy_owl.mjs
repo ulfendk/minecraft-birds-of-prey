@@ -1,0 +1,33 @@
+import { barred, bird, breast, flecked, mottle, region, scaled, streaked, tailBars } from '../lib/plumage.mjs';
+
+export default bird({
+  id: 'snowy_owl',
+  name: 'Snowy Owl',
+  group: 'owl',
+  sleeps: 'night',
+  size: [0.7, 0.9],
+  scale: 0.95,
+  health: 14,
+  flySpeed: 0.22,
+  xp: 4,
+  attack: { damage: 4, speed: 1.6 },
+  hunts: ['rabbit', 'fox', 'silverfish'],
+  huntRange: 24,
+  pellets: true,
+  spawn: [{ biomes: ['snowy'], weight: 2 }],
+  sounds: { ambient: 'note.flute', hurt: 'mob.parrot.hurt', death: 'mob.parrot.death', pitch: [0.5, 0.5], interval: 24 },
+  egg: ['#f8f8f4', '#2a2a2a'],
+  body: { bodyW: 6, bodyH: 6, bodyL: 9, headW: 6, headH: 5, headD: 5, neck: 0, beak: 1, wingL: 11, wingD: 6, tip: 3, tailL: 4, tailW: 4, lean: -72, eye: '#f2c230', pupil: '#14100c' },
+  materials: {
+    body: { base: '#f8f8f4', layers: [flecked('#3a3a3a', { density: 0.08 })] },
+    wing: { base: '#f4f4f0', layers: [flecked('#2a2a2a', { density: 0.14 })] },
+    primaries: { base: '#f0f0ec', layers: [barred('#4a4a4a', { period: 3 })] },
+    tail: '#f4f4f0',
+    head: { base: '#f8f8f4', layers: [flecked('#3a3a3a', { density: 0.05 })] },
+    cere: '#2a2a2a',
+    beak: '#2a2a2a',
+    legs: '#f8f8f4',
+    foot: '#f8f8f4',
+  },
+  motion: { flap: 18, flapLength: 0.7 },
+});
