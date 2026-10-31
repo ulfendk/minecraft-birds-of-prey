@@ -1,6 +1,6 @@
 // Hunting styles entity JSON alone can't express: falcons stoop from on high, ospreys
 // plunge into the water, lammergeiers drop bones to crack them, scavengers gather
-// where something big has died.
+// where something big has died, and the secretary bird shrugs off snake venom.
 import { ItemStack, system, world } from '@minecraft/server';
 import { SPECIES } from './data.js';
 import { pull } from './gear.js';
@@ -74,4 +74,11 @@ function onDeath({ deadEntity }) {
 export function setupBehaviours() {
   system.runInterval(tick, TICK);
   world.afterEvents.entityDie.subscribe(onDeath);
+  // A snake's bite can't get through the secretary bird's leg scales.
+  world.afterEvents.effectAdd.subscribe(({ entity, effect }) => {
+    if (!effect.typeId.endsWith('poison') || !SPECIES[speciesOf(entity)]?.venomProof) return;
+    system.run(() => {
+      try { entity.removeEffect('poison'); } catch { /* gone */ }
+    });
+  });
 }

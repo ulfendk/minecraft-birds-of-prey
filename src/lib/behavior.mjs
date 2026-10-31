@@ -205,6 +205,8 @@ export function buildEntity(a) {
   const groups = lifeGroups(a);
   const properties = {
     [`${NS}:carrying`]: { type: 'bool', default: false, client_sync: true },
+    // Whether the resting group is on, so the sensor below only fires when day turns to night.
+    [`${NS}:resting`]: { type: 'bool', default: false },
     ...(a.falconry ? { [`${NS}:hooded`]: { type: 'bool', default: false, client_sync: true } } : {}),
   };
 
@@ -212,8 +214,10 @@ export function buildEntity(a) {
   const activeByDay = a.sleeps !== 'day';
   components['minecraft:environment_sensor'] = {
     triggers: [
-      { filters: { test: 'is_daytime', value: activeByDay }, event: `${NS}:become_active` },
-      { filters: { test: 'is_daytime', value: !activeByDay }, event: `${NS}:become_resting` },
+      // The sensor runs every tick, and re-adding a component group resets the bird's goals
+      // (it would never get round to hunting), so only switch when the time of day changes.
+      { filters: { all_of: [{ test: 'is_daytime', value: activeByDay }, { test: 'bool_property', domain: `${NS}:resting`, value: true }] }, event: `${NS}:become_active` },
+      { filters: { all_of: [{ test: 'is_daytime', value: !activeByDay }, { test: 'bool_property', domain: `${NS}:resting`, value: false }] }, event: `${NS}:become_resting` },
     ],
   };
 
@@ -229,8 +233,8 @@ export function buildEntity(a) {
     [`${NS}:ringed`]: { remove: { component_groups: [`${NS}:despawns`] } },
     [`${NS}:spawn_adult`]: { add: { component_groups: [...adult, `${NS}:active`, `${NS}:despawns`] } },
     [`${NS}:grow_up`]: { remove: { component_groups: [`${NS}:baby`] }, add: { component_groups: [`${NS}:adult`] } },
-    [`${NS}:become_active`]: { remove: { component_groups: [`${NS}:resting`] }, add: { component_groups: [`${NS}:active`] } },
-    [`${NS}:become_resting`]: { remove: { component_groups: [`${NS}:active`] }, add: { component_groups: [`${NS}:resting`] } },
+    [`${NS}:become_active`]: { remove: { component_groups: [`${NS}:resting`] }, add: { component_groups: [`${NS}:active`] }, set_property: { [`${NS}:resting`]: false } },
+    [`${NS}:become_resting`]: { remove: { component_groups: [`${NS}:active`] }, add: { component_groups: [`${NS}:resting`] }, set_property: { [`${NS}:resting`]: true } },
     [`${NS}:start_carrying`]: { set_property: { [`${NS}:carrying`]: true } },
     [`${NS}:stop_carrying`]: { set_property: { [`${NS}:carrying`]: false } },
   };

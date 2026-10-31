@@ -169,7 +169,7 @@ export async function build({ quiet = false } = {}) {
   const species = Object.fromEntries(animals.map((a) => [a.id, {
     falconry: !!a.falconry, stoops: !!a.stoops, hovers: !!a.hovers, soars: !!a.soars, owl: a.group === 'owl',
     walks: a.movement === 'walk', fishes: (a.hunts ?? []).includes('fish'), scavenger: !!a.scavenger, bones: !!a.dropsBones,
-    nests: !!a.nestBox, call: a.sounds?.ambient ?? null, pitch: a.sounds?.pitch?.[0] ?? 1, racePoints: racePoints(a),
+    nests: !!a.nestBox, venomProof: !!a.venomProof, call: a.sounds?.ambient ?? null, pitch: a.sounds?.pitch?.[0] ?? 1, racePoints: racePoints(a),
   }]));
   const itemIds = [...items.map((i) => `${NS}:${i.id}`), ...blocks.map((b) => `${NS}:${b.id}`)];
   await write(join(BP, 'scripts', 'data.js'), [

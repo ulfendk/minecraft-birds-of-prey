@@ -19,7 +19,7 @@ export const guide = {
   snowy_owl: 'A big white owl of the Arctic tundra. Unlike most owls it hunts in daylight, as the summer sun never sets up there.',
   great_grey_owl: 'Looks huge, but most of it is feathers. Its enormous facial disc lets it hear a vole moving under the snow – and dive straight through.',
   eagle_owl: 'One of the largest owls in the world, with orange eyes and long ear tufts. It hunts at night and will take anything up to a fox.',
-  secretary_bird: 'A bird of prey on long legs that hunts on foot across the savanna. It stamps snakes to death with lightning-fast kicks.',
+  secretary_bird: 'A bird of prey on long legs that hunts on foot across the savanna. It stamps snakes to death with lightning-fast kicks, and the thick scales on its legs keep their bites out.',
   andean_condor: 'The giant of the Andes, with a three-metre wingspan. It can soar for hours without flapping, looking for something that has died.',
   lammergeier: 'The bearded vulture eats almost nothing but bones. It carries them high into the air and drops them on rocks to crack them open.',
 };

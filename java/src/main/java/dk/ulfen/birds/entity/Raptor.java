@@ -39,6 +39,8 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.TamableAnimal;
@@ -231,6 +233,13 @@ public class Raptor extends TamableAnimal implements GeoEntity {
 	}
 
 	// ---------------------------------------------------------------- state
+
+	/** A snake's bite can't get through the secretary bird's leg scales. */
+	@Override
+	public boolean canBeAffected(MobEffectInstance effect) {
+		if (this.species().venomProof() && effect.is(MobEffects.POISON)) return false;
+		return super.canBeAffected(effect);
+	}
 
 	public boolean isResting() {
 		return this.entityData.get(RESTING);

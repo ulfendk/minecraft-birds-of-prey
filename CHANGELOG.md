@@ -2,6 +2,8 @@
 
 ## 0.1.1
 
+- **Wild birds hunt on Bedrock again:** a bird kept resetting its own goals every tick, so on Bedrock it never got round to going after prey. Now eagles, hawks, owls and the rest really hunt.
+- **The secretary bird kills snakes:** with Safari Animals installed it hunts king cobras and black mambas, kicks harder, and the thick scales on its legs keep the venom out.
 - **The Golden Raptor trophy can be placed:** it is now a block, a gold eagle with raised wings on a wooden stand that faces you and glows softly.
 
 ## 0.1.0

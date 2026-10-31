@@ -157,7 +157,7 @@ const da = {
     snowy_owl: 'En stor, hvid ugle fra den arktiske tundra. I modsætning til de fleste ugler jager den i dagslys, for sommersolen går aldrig ned dér.',
     great_grey_owl: 'Ser kæmpestor ud, men det meste er fjer. Med sit enorme ansigt kan den høre en mus bevæge sig under sneen – og dykke lige igennem.',
     eagle_owl: 'En af verdens største ugler, med orange øjne og lange fjerøre. Den jager om natten og tager alt op til en ræv.',
-    secretary_bird: 'En rovfugl på lange ben, der jager til fods på savannen. Den tramper slanger ihjel med lynhurtige spark.',
+    secretary_bird: 'En rovfugl på lange ben, der jager til fods på savannen. Den tramper slanger ihjel med lynhurtige spark, og de tykke skæl på benene holder deres bid ude.',
     andean_condor: 'Andesbjergenes kæmpe med tre meter mellem vingespidserne. Den kan svæve i timevis uden et vingeslag og leder efter noget, der er dødt.',
     lammergeier: 'Lammegribben spiser næsten kun knogler. Den bærer dem højt op i luften og taber dem på klipperne, så de knækker.',
   },

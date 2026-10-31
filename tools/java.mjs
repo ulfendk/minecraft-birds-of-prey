@@ -80,6 +80,7 @@ function speciesRecord(a, animals, animNames) {
     scavenger: !!a.scavenger,
     dropsBones: !!a.dropsBones,
     nestBox: !!a.nestBox,
+    venomProof: !!a.venomProof,
     scale: a.scale ?? 1,
     racePoints: racePoints(a),
     sounds: {

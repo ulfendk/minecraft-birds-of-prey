@@ -31,6 +31,7 @@ public record Species(
 	boolean scavenger,
 	boolean dropsBones,
 	boolean nestBox,
+	boolean venomProof,
 	float scale,
 	int racePoints,
 	Sounds sounds,

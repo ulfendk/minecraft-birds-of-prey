@@ -10,7 +10,10 @@ export default bird({
   health: 18,
   speed: 0.26,
   xp: 4,
-  attack: { damage: 5, speed: 1.6 },
+  attack: { damage: 7, speed: 1.6 },
+  // Thick scales on its long legs keep a snake's bite out (scripts/behaviours.js).
+  venomProof: true,
+  // Venomous snakes come from the Safari Animals add-on, when it is installed.
   hunts: ['venomous_snake', 'rabbit', 'frog', 'silverfish'],
   huntRange: 16,
   spawn: [{ biomes: ['savanna'], weight: 3 }],

@@ -76,6 +76,19 @@ sleep 10
 send scriptevent birds:selftest "$ids"
 sleep 3
 
+# A wild secretary bird must catch a rabbit shut in with it (Bedrock goals reset if the
+# entity keeps re-adding component groups, and then birds never hunt).
+send fill 0 -60 34 8 -55 42 glass hollow
+send summon birds:secretary_bird 2 -59 38
+send summon rabbit 6 -59 38 0 0 minecraft:entity_spawned prey_check
+caught=no
+for _ in $(seq 1 12); do
+  sleep 10
+  send testfor @e[name=prey_check]
+  sleep 1
+  if ! docker logs "$NAME" 2>&1 | grep -E "Found prey_check|No targets matched" | tail -1 | grep -q "Found"; then caught=yes; break; fi
+done
+
 LOG=$(docker logs "$NAME" 2>&1)
 echo "$LOG" | grep -iE "birds|error|warn|\[Scripting\]" | grep -vE "send-command|^\s*$" | tail -100 || true
 
@@ -88,7 +101,10 @@ fi
 if ! echo "$LOG" | grep -q "selftest PASS"; then
   echo "FAIL: not every bird could be summoned, or a self-check failed"; exit 1
 fi
-if echo "$LOG" | grep -E "ERROR|\[error\]|Error\]" | grep -viE "Failed to connect|network|telemetry" | grep -q .; then
+if echo "$LOG" | grep -E "ERROR|\[error\]|Error\]" | grep -viE "Failed to connect|network|telemetry|No targets matched" | grep -q .; then
   echo "FAIL: content log has errors"; exit 1
+fi
+if [ "$caught" != yes ]; then
+  echo "FAIL: the secretary bird did not catch the rabbit (wild birds don't hunt)"; exit 1
 fi
 echo "PASS: Bedrock Dedicated Server loaded the packs without errors"

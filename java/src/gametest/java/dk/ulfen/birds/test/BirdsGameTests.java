@@ -99,4 +99,16 @@ public class BirdsGameTests {
 			helper.succeed();
 		});
 	}
+
+	/** Snake venom doesn't get through the secretary bird's leg scales; other birds are poisoned. */
+	@GameTest(maxTicks = 20)
+	public void secretaryBirdShrugsOffVenom(GameTestHelper helper) {
+		Raptor secretary = spawn(helper, "secretary_bird", new BlockPos(1, 1, 1));
+		Raptor buzzard = spawn(helper, "common_buzzard", new BlockPos(3, 1, 3));
+		secretary.addEffect(new MobEffectInstance(MobEffects.POISON, 100));
+		buzzard.addEffect(new MobEffectInstance(MobEffects.POISON, 100));
+		if (secretary.hasEffect(MobEffects.POISON)) helper.fail("The secretary bird was poisoned");
+		if (!buzzard.hasEffect(MobEffects.POISON)) helper.fail("The buzzard should be poisoned");
+		helper.succeed();
+	}
 }
